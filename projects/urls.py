@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from django.conf.urls.defaults import *
-urlpatterns = patterns('testMill.projects.views',
+urlpatterns = patterns('testmill.projects.views',
     (r'^doc/(?P<id>\w+)/','detail'),
     (r'^new','new'),
     (r'^view','view'),

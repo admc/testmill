@@ -20,7 +20,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
 from django.template import RequestContext
-from testMill.projects.models import Server, Application
+from testmill.projects.models import Server, Application
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
@@ -32,9 +32,9 @@ import couchdb
 # Access all the defined servers from the DB
 
 try:
-    TRAC = Server.objects.get(name="TRAC").path
+    TICKET = Server.objects.get(name="TICKET").path
 except:
-    TRAC = ''
+    TICKET = ''
     
 try:
     SOURCE = Server.objects.get(name="SOURCE").path
@@ -72,10 +72,10 @@ def index(request):
     docs = COUCHDB['testmill']
     active = len(docs);
     couch = COUCHDB
-    trac = TRAC
+    ticket = TICKET
     hudson = HUDSON
     
-    return render_to_response('projects/index.html', {'active':active, 'couch':couch, 'trac':trac, 'hudson':hudson})
+    return render_to_response('projects/index.html', {'active':active, 'couch':couch, 'ticket':ticket, 'hudson':hudson})
 
 #helper function: build the json to display all test projects of an app type
 def build_app_dict(app_name):
@@ -259,7 +259,7 @@ def new(request):
             'location':'',
             'tool':'',
             'branch':'',
-            'parameters':'',
+            'params':'',
             'notes':'',
             'app':'',
             'wiki':'',
@@ -311,4 +311,4 @@ def detail(request,id):
     context_instance=RequestContext(request)
     context_instance.autoescape=False
 
-    return render_to_response('projects/detail.html',{'row':doc, 'id':id, 'trac':TRAC},context_instance)
+    return render_to_response('projects/detail.html',{'row':doc, 'id':id, 'ticket':TICKET}, context_instance)

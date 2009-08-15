@@ -34,11 +34,11 @@ urlpatterns = patterns('',
     
     #accounts
     (r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'accounts/login.html'}),
-    (r'^accounts/logout/$', 'testMill.accounts.views.logout_view'),
+    (r'^accounts/logout/$', 'testmill.accounts.views.logout_view'),
         
     #static files
     (r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': 'static', 'show_indexes': True}),
     
     #default
-    (r'^$','testMill.projects.views.index'),
+    (r'^$','testmill.projects.views.index'),
 )

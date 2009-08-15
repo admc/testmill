@@ -13,7 +13,7 @@
 #   limitations under the License.
 
 from django.conf.urls.defaults import *
-urlpatterns = patterns('testMill.accounts.views',
+urlpatterns = patterns('testmill.accounts.views',
     (r'^logout','logout_view'),
     (r'^$','index'),
 )

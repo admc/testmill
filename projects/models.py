@@ -27,7 +27,7 @@ class ApplicationAdmin(admin.ModelAdmin):
 # Create your models here.
 class Server(models.Model):
     SERVER_CHOICES = (
-        ('TRAC','TRAC'),
+        ('TICKET','TICKET'),
         ('HUDSON','HUDSON'),
         ('SOURCE','SOURCE'),
         ('COUCHDB','COUCHDB'),

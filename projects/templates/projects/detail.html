@@ -28,14 +28,14 @@ limitations under the License.
 		<li><a href="#detailTabs-3">Status</a></li>
 	</ul>
 	<div id="detailTabs-1">
-    <table style="width:75%;padding:3px;">
+    <table style="padding:5px;width:75%table-layout:fixed">
     {% for k,v in row.items %}
       {% if "."|notin:k %}
       {% if "_"|notin:k %}
     
        <tr>
           <td valign="top" style="font-size:12px;"> <b>{{ k|capfirst }}:<b> </td>
-          <td style="font-size:10px;">{{ v }}</td>
+          <td style="font-size:12px;background:#eee;">{{ v }}</td>
         <tr>
       {% endif %}
       {% endif %}
@@ -90,26 +90,27 @@ limitations under the License.
    </div>
 	</div>
 	
-	<div id="detailTabs-2" >
+	<div id="detailTabs-2">
     <table id="casesGrid" class="scroll" cellpadding="0" cellspacing="0"></table>
     <div id="pager2" class="scroll" style="text-align:center;"></div>
     
-    <a href="javascript:newCase();">New Step</a> | 
+    <a href="javascript:newCase();">New Test Case</a> | 
     <a href="javascript:doneEdit();">Done Editing</a> |
-    <a href="javascript:deleteSelected();">Delete Selected</a> |
-    <a href="javascript:viewDocs();">View File</a> |
-    <a href="javascript:bugLinks();">Bug Links</a> |
+    <a href="javascript:deleteSelected();">Delete Selected</a>
+    
+    <span style="float:right;padding:5px;"><a href="javascript:viewDocs();">View File</a> |
+    <a href="javascript:bugLinks();">Bug Links</a></span>
     
 	</div>
 	
 	<div id="detailTabs-3">
-	  <table>
+	  <table style="width:100%">
 	    <tr>
 	      <td>
-	        <div id="result" style="font-size:12px;"/>
+	        <center><div id="result" style="font-size:12px;"/></center>
 	      </td>
 	      <td>
-	        <div id="graph"/>
+	        <div id="graph" style="float:right"/>
 	      </td>
 	    </tr>
 	    </table>
@@ -199,13 +200,13 @@ limitations under the License.
     bugStr = bugStr.replace(/\s+/g,'');
     var bugArr = bugStr.split(',');
     if (bugArr < 1){
-      alert("No bugs have been logged for the selected step.")
+      alert("No bugs have been logged for the selected test case.")
       return;
     }
     //create links and add them to the dialog
     for (bug in bugArr){
       var l = document.createElement('a');
-      l.href = "{{ trac }}"+bugArr[bug];
+      l.href = "{{ ticket }}"+bugArr[bug];
       l.target = "_blank";
       l.innerHTML = "Bug: "+bugArr[bug];
       $("#dialog")[0].appendChild(l);
@@ -222,7 +223,7 @@ limitations under the License.
   
   var newCase = function(){
      var z = $("#casesGrid").children().children().length;
-     var x = {step:z+1,assertion:'',name:"",status:"PASS",bugs:"",comments:''};
+     var x = {id:z+1,assertion:'',name:"",status:"PASS",bugs:"",comments:''};
      $("#casesGrid").addRowData(z+1,x);
   };
   

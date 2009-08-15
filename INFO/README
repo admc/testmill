@@ -23,7 +23,7 @@ Deps:
   7. click 'Servers' add one of each available servers
    - (REQUIRED) the COUCHDB url needs to be where your couchDB server is running, ex: http://127.0.0.1:5984 (default)
     - This can also be configured in settings.py to point elsewhere on startup instead of getting it from the DB
-   - the TRAC url needs to be to your trac tickets root url, ex: https://trac.slide.com/projects/Slide/ticket/
+   - the TICKET url needs to be to your bug/issue/ticket trackers root url, ex: https://trac.slide.com/projects/Slide/ticket/
    - the HUDSON url needs to be the url to your Hudson install, ex: http://hudson/
    - the SOURCE url needs to be the root of your http accessible source repo where your tests are stored, ex: http://myurl.com/mygitrepo
   8. Go back to the testMill home page, and login!
