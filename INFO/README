@@ -1,14 +1,14 @@
 TestMill Server
 ---------------
 
-Deps:
+  - Dependencies -
+
  python - http://www.python.org/
  django - http://www.djangoproject.com/
  pygments - http://pygments.org/
  feedparser - http://www.feedparser.org/
  couchDB - http://couchdb.apache.org/
  sqlite3 - http://sqlite.org/
- urllib2 - http://docs.python.org/library/urllib2.html
  couchdb-python - http://code.google.com/p/couchdb-python/
  
   - Getting Started -
