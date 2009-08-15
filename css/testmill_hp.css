@@ -1,0 +1,178 @@
+html,body {
+  height: 100%;
+  font: 100% "Trebuchet MS", sans-serif;  margin: 0px;
+  padding: 0px;
+  color: #111;
+  background:#eee;
+}
+
+#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+ul#icons {margin: 0; padding: 0;}
+ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+ul#icons span.ui-icon {float: left; margin: 0 4px;}
+
+form { display: inline; }
+p {
+  margin-top: 0px;
+  padding-top: 0px;
+}
+a img { border: 0; }
+a {
+  color: #542;
+  text-decoration: none;
+  border-bottom: 1px dotted #606;
+}
+a:hover {
+  border-bottom: 1px dotted #fff;
+}
+h1, h2, h3, h4, h5 {
+}
+h1 {
+  margin: 18px 0 12px;
+  font-size:32px;
+}
+h2 {
+  margin: 16px 0 10px;
+  font-size: 24px;
+}
+h3 {
+  margin: 12px 0 8px;
+  font-size: 20px;
+}
+form input.textElem,
+form select,
+form textarea {
+  border:1px solid #999;
+}
+form input.textElem {
+  background:url(/static/img/text_elem_gradient.gif);
+  background-repeat:repeat-x;
+  font-size: 12px;
+  height:20px;
+  padding:2px;
+  width:75%;
+}
+form input.btnElemBase {
+  width: 84px;
+  height: 22px;
+  font-size: 12px;
+  color: #542;
+  letter-spacing: 0.5px;
+  border-style: solid;
+  border-color: #dca #875 #875 #dca;
+  border-width: 1px;
+  /* Gradient #d5caa5  */
+  background-image: url(/static/img/button_bgs.gif);
+  background-repeat: repeat-x;
+  background-position: 0px 0px;
+  padding: 0px;
+  margin: 0px;
+  cursor: pointer;
+}
+form input.btnElemMouseover {
+  color: #939;
+  background-image: url(/static/img/button_bgs.gif);
+  background-position: 0px -22px;
+  border-color: #ccc #875 #875 #ccc;
+}
+form input.btnElemMousedown {
+  color: #939;
+  background-image: url(/static/img/button_bgs.gif);
+  background-position: 0px -22px;
+  border-color: #875 #ccc #ccc #875;
+}
+form textarea {
+  font-size:11px;
+  background:url(/static/img/text_elem_gradient.gif);
+  background-repeat:repeat-x;
+  padding-left:4px;
+  padding-top:4px;
+  padding-bottom:4px;
+  padding-right:0px;
+}
+.labelText {
+  font-weight: bold;
+  margin-top: 4px;
+  font-size: 16px;
+}
+.promptText {
+  color: #333;
+  font-size: 13px;
+}
+.faintText {
+  color: #888;
+}
+.normalPrompt {
+  color: #333;
+}
+.errorPrompt {
+  color: #c33;
+}
+.successPrompt {
+  color: #33c;
+}
+.floatLeft {
+  float: left;
+}
+.floatRight {
+  float: right;
+}
+.clearBoth {
+  clear: both;
+  font-size: 0px;
+}
+#container {
+  min-height: 100%;
+  margin: auto;
+}
+#footer {
+  font-size: 11px;
+  margin-top: -24px;
+  width:100%;
+  text-align:center;
+}
+
+#header {
+  text-align:right;
+  padding:10px;
+  left:0px;
+  top:0px;
+  background: #FFFFFF url(../img/bg.png) repeat-x scroll 0 0;
+  position:relative;
+  height:60px;
+  font-size:40px;
+}
+
+p {
+		font-size:		1em;
+		margin:			1em 0;
+	}
+	button {
+		line-height:	normal;
+	}
+
+	/**
+	 *	Basic Layout Theme
+	 * 
+	 *	This theme uses the default layout class-names for all classes
+	 *	Add any 'custom class-names', from options: paneClass, resizerClass, togglerClass
+	 *
+	 *	Download a slightly more comprehensive stylesheet here:
+	 *		http://layout.jquery-dev.net/demos/css/layout-default.css
+	 */
+
+	.ui-layout-pane { /* all 'panes' */ 
+		background: #FFF; 
+		border: 1px solid #BBB; 
+		padding: 10px; 
+		overflow: auto;
+	} 
+
+	.ui-layout-resizer { /* all 'resizer-bars' */ 
+		background: #DDD; 
+	} 
+
+	.ui-layout-toggler { /* all 'toggler-buttons' */ 
+		background: #AAA; 
+	}

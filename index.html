@@ -1,1 +1,133 @@
-testmill server project
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>TestMill Server Project</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="adam">
+	<link rel="stylesheet" href="css/testmill_hp.css" type="text/css" media="screen" title="no title" charset="utf-8">
+	<!-- Date: 2009-08-15 -->
+</head>
+<body>
+  <div id="header">
+    <a href="http://github.com/admc/testmill/tree/master">TestMill Server Project</a>
+  </div>
+  <h2> What is it? </h2>
+  <hr>
+  <div>
+    <ul>
+      <li> <b>Mission</b>: An easy to use test case management system with hooks for <a href="https://hudson.dev.java.net/">Hudson</a>, issue trackers and your source repository, built in,<a href="http://www.djangoproject.com/">Django</a>, <a href="http://couchdb.apache.org/">CouchDB</a>, and <a href="http://jquery.com/">jQuery</a>.<br>
+      <li> <b>License</b>: Everything is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, Version 2.0</a><br>
+      <li> <b>Where</b>: The whole project is open source and <a href="http://github.com/admc/testmill/tree/master">hosted on GitHub</a>, enjoy!<br>
+      <li> <b>Contact</b>: Feel free to email me with questions at adam at adamchristian dot com<br>
+      <li> <b>Contribute</b>Please fork the code, work on it and log bugs here in the <a href="http://github.com/admc/testmill/issues">Github Issue Tracker</a>! 
+  </div>
+  
+  <h2> Features</h2>
+  <hr>
+  <div>
+    <ul>
+      <li> AJAX based test case builder
+      <li> Hooks for your ticket tracker for directly accessing tickets
+      <li> Hooks for interoperating with <a href="https://hudson.dev.java.net/">Hudson</a> to see results, and run test jobs
+      <li> Hooks for pulling in test code for immediate viewing from the same interface
+      <li> Uses couchDB to store test projects, making them easily configurable
+      <li> Uses the Django admin interface for managing user accounts and server configuration
+    </ul>    
+  </div>
+  
+  <h2> Installation</h2>
+  <hr>
+  <div>
+    <ol>
+      <li> git clone <a href="git://github.com/admc/testmill.git">git://github.com/admc/testmill.git</a> testmill 
+      <li> cd testmill
+      <li> python manage.py syncdb (Create a user when it asks)
+      <li> python manage.py runserver
+      <li> goto localhost:8000/admin unless you ran it elsewhere then go there
+      <li> click 'Applications' link and add all the applications (or products) you will be testing
+      <li> go back to /admin
+      <li> click 'Servers' add one of each available servers (see below for details)
+      <li>Go back to the testMill home page, and login!
+      <li>Start adding testProjects, link on the left side.
+    <ol>
+    </div>
+    <div>
+      <b>*Server Details</b>
+        <ul>
+          <li> CouchDB - (REQUIRED) the COUCHDB url needs to be where your couchDB server is running, ex: http://127.0.0.1:5984 (default)
+          <li> CouchDB can also be configured in settings.py to point elsewhere on startup instead of getting it from the DB
+          <li> Ticket Server - the TICKET url needs to be to your bug/issue/ticket trackers root url, ex: https://trac.slide.com/projects/Slide/ticket/
+          <li> Hudson - the HUDSON url needs to be the url to your Hudson install, ex: http://hudson/
+          <li> Source Repo - the SOURCE url needs to be the root of your http accessible source repo where your tests are stored, ex: http://myurl.com/mygitrepo
+        </ul>
+    </div>
+  
+  
+  <h2>Dependencies</h2>
+  <hr>
+  <div>
+    <ul>
+      <li><a href="http://www.python.org/">python - http://www.python.org/</a>
+      <li><a href="http://www.djangoproject.com/">django - http://www.djangoproject.com/</a>
+      <li><a href="http://pygments.org/"> pygments - http://pygments.org/</a>
+      <li><a href="http://www.feedparser.org/">feedparser - http://www.feedparser.org/</a>
+      <li><a href="http://couchdb.apache.org/">couchDB - http://couchdb.apache.org/</a>
+      <li><a href="http://sqlite.org/">sqlite3 - http://sqlite.org/</a>
+      <li><a href="http://code.google.com/p/couchdb-python/">couchdb-python - http://code.google.com/p/couchdb-python/</a>
+    </ul>
+  </div>
+  <h2>Screen Shots</h2>
+  <div>
+    <img src="img/home.png" style="width:50%;height:50%;"><br>
+    <b>Homepage</b>
+  <div>
+  <div>
+    <img src="img/create_new.png" style="width:50%;height:50%;"><br>
+    <b>Create a new test project</b>
+  <div>  
+  <div>
+    <img src="img/project_details.png" style="width:50%;height:50%;"><br>
+    <b>Test project details</b>
+  <div>
+  <div>
+    <img src="img/test_project_details.png" style="width:50%;height:50%;"><br>
+    <b>Editing a test project.</b>
+  <div> 
+  <div>
+    <img src="img/assertion_grid.png" style="width:50%;height:50%;"><br>
+    <b>Test assertions builder.</b>
+  <div>
+  <div>
+    <img src="img/inline_editing.png" style="width:50%;height:50%;"><br>
+    <b>Test assertions inline editing.</b>
+  <div>    
+  <div>
+    <img src="img/bug_links.png" style="width:50%;height:50%;"><br>
+    <b>Automatically link to logged bugs.</b>
+  <div>
+  <div>
+    <img src="img/code_hilight_viewer.png" style="width:50%;height:50%;"><br>
+    <b>View hi-lighted test rode right on the page.</b>
+  <div>
+    <div>
+      <img src="img/source_parsing.png" style="width:50%;height:50%;"><br>
+      <b>Document your code with comments, and view that separately.</b>
+    <div>
+  <div>
+    <img src="img/project_status.png" style="width:50%;height:50%;"><br>
+    <b>View the status of the jobs automated test runs.</b>
+  <div>
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-1368002-6");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+</body>
+</html>
