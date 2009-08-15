@@ -1,0 +1,145 @@
+<!--
+Copyright 2009, Adam Christian (adam@adamchristian.com) and Slide, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. 
+-->
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}TestMill Server{% endblock %}</title>
+
+    <!-- ** CSS ** -->
+    <link rel="stylesheet" type="text/css" href="/static/css/global.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/pygments_style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/js/jquery-ui-1.7.2.custom/css/smoothness/jquery-ui-1.7.2.custom.css" />	
+  	<link rel="stylesheet" type="text/css" media="screen" href="/static/js/jquery-ui-1.7.2.custom/css/all.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/js/jquery-ui-1.7.2.custom/css/jquery.searchFilter.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/static/js/jquery-ui-1.7.2.custom/css/ui.jqgrid.css" />
+		<link rel="stylesheet" href="/static/js/jquery-ui-1.7.2.custom/css/jquery.treeview.css" />
+  	
+		<script type="text/javascript" src="/static/js/jquery-ui-1.7.2.custom/js/jquery-1.3.2.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-ui-1.7.2.custom/js/jquery-ui-1.7.2.custom.min.js"></script>
+		<script type="text/javascript" src="/static/js/jquery-ui-1.7.2.custom/js/jquery.layout.js"></script>
+  	<script src="/static/js/jquery-ui-1.7.2.custom/js/jquery.cookie.js" type="text/javascript"></script>
+  	<script src="/static/js/jquery-ui-1.7.2.custom/js/jquery.treeview.js" type="text/javascript"></script>
+  	<script src="/static/js/jquery-ui-1.7.2.custom/js/jquery.treeview.async.js" type="text/javascript"></script>		
+
+    <script src="/static/js/jquery-ui-1.7.2.custom/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+    <script src="/static/js/jquery-ui-1.7.2.custom/js/jquery.jqGrid.js" type="text/javascript"></script>
+    
+    <script type="text/javascript">
+      
+      var callResizeGrid = function(){
+        if (window.onresize){
+          window.onresize();
+        }
+      };
+      
+    	var myLayout; // a var is required because this page utilizes: myLayout.allowOverflow() method
+
+    	$(document).ready(function () {
+
+    		// this layout could be created with NO OPTIONS - but showing some here just as a sample...
+    		// myLayout = $('body').layout(); -- syntax with No Options
+    		myLayout = $('body').layout({
+    		//	reference only - these options are NOT required because are already the 'default'
+    			closable:				true	// pane can open & close
+    		,	resizable:				true	// when open, pane can be resized 
+    		,	slidable:				true	// when closed, pane can 'slide' open over other panes - closes on mouse-out
+    		//	some resizing/toggling settings
+    		,	north__slidable:		false	// OVERRIDE the pane-default of 'slidable=true'
+    		,	north__togglerLength_closed: '100%'	// toggle-button is full-width of resizer-bar
+    		,	north__spacing_closed:	20		// big resizer-bar when open (zero height)
+    		,	south__resizable:		false	// OVERRIDE the pane-default of 'resizable=true'
+    		,	south__spacing_open:	0		// no resizer-bar when open (zero height)
+    		,	south__spacing_closed:	20		// big resizer-bar when open (zero height)
+    		,	west__onclose:			"callResizeGrid"
+    		,	west__onopen:			"callResizeGrid"
+    		//	some pane-size settings
+    		,	west__minSize:			100
+       ,  east__size:       300
+               , east__minSize:      200
+               , east__maxSize:      Math.floor(screen.availWidth / 2) // 1/2 screen width
+       		});
+
+    		// add event to the 'Close' button in the East pane dynamically...
+    		//myLayout.addCloseBtn('#btnCloseEast', 'east');
+
+    		// add event to the 'Toggle South' buttons in Center AND South panes dynamically...
+    		//myLayout.addToggleBtn('.south-toggler', 'south');
+
+    		// add MULTIPLE events to the 'Open All Panes' button in the Center pane dynamically...
+        // myLayout.addOpenBtn('#openAllPanes', 'north');
+        // myLayout.addOpenBtn('#openAllPanes', 'south');
+        // myLayout.addOpenBtn('#openAllPanes', 'west');
+        // myLayout.addOpenBtn('#openAllPanes', 'east');
+        //myLayout.toggle('east')
+
+     	});
+    	</script>
+
+    </script>
+</head>
+<body>
+
+    <div class="ui-layout-north" id="header">
+    	<h1>
+        <a href="/projects" style="color:white;">TestMill Server</a>
+       </h1>
+    </div>
+
+    <div class="ui-layout-west" id="layout-west">
+        <b> Test Projects</b> <a href="/projects/new" style="font-size:10px;">(New)</a><br><br>
+        <ul id="black" class="filetree">
+      	</ul>
+    </div>
+
+    <!-- <div class="ui-layout-east">
+
+    </div> -->
+
+    <div class="ui-layout-center" id="layout-center">
+      {% block content %}{% endblock %}
+    </div>
+    
+  <script type="text/javascript" charset="utf-8">
+    //     $.post("/projects/list", { },   function(data){ 
+    //   var blah = eval(data);
+    // 
+    //   if (blah.length == 0){
+    //     $('#layout-west')[0].innerHTML = "No Projects..";
+    //   } else {
+    //     $('#layout-west')[0].innerHTML = "";
+    //   }
+    //   
+    //   for (var i=0;i<blah.length;i++){
+    //     $('#layout-west')[0].innerHTML += "<a href='/projects/doc/"+blah[i].id+"'>"+ blah[i].value.name + "</a>";
+    //   }
+    // });
+    
+    
+    $(document).ready(function(){
+  		$("#black").treeview({
+  			url: "/projects/tree",
+				animated: "fast",
+    		collapsed: true,
+    		unique: true,
+    		persist: "cookie",
+    		control: "#treecontrol",
+  		})
+  		
+  	});
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+TestMill Server
+---------------
+
+Deps:
+ python - http://www.python.org/
+ django - http://www.djangoproject.com/
+ pygments - http://pygments.org/
+ feedparser - http://www.feedparser.org/
+ couchDB - http://couchdb.apache.org/
+ sqlite3 - http://sqlite.org/
+ urllib2 - http://docs.python.org/library/urllib2.html
+ couchdb-python - http://code.google.com/p/couchdb-python/
+ 
+  - Getting Started -
+  
+  1. cd testMill
+  2. python manage.py syncdb
+   - Create a user when it asks
+  3. python manage.py runserver
+  4. goto localhost:8000/admin unless you ran it elsewhere then go there
+  5. click 'Applications' link and add all the applications (or products) you will be testing
+  6. go back to /admin
+  7. click 'Servers' add one of each available servers
+   - (REQUIRED) the COUCHDB url needs to be where your couchDB server is running, ex: http://127.0.0.1:5984 (default)
+    - This can also be configured in settings.py to point elsewhere on startup instead of getting it from the DB
+   - the TRAC url needs to be to your trac tickets root url, ex: https://trac.slide.com/projects/Slide/ticket/
+   - the HUDSON url needs to be the url to your Hudson install, ex: http://hudson/
+   - the SOURCE url needs to be the root of your http accessible source repo where your tests are stored, ex: http://myurl.com/mygitrepo
+  8. Go back to the testMill home page, and login!
+  9. Start adding testProjects, link on the left side.
+  
+  Enjoy!
+ 

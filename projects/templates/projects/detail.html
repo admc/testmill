@@ -1,0 +1,311 @@
+<!--
+Copyright 2009, Adam Christian (adam@adamchristian.com) and Slide, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. 
+-->
+
+{% extends "base.html" %}
+
+{% block content %}
+{% load project_extras %}
+
+<h1>{{ row.name }}</h1>
+<hr>
+<div id="detailTabs" style="font-size:12px;">
+	<ul>
+		<li><a href="#detailTabs-1">Details</a></li>
+		<li><a href="#detailTabs-2">Cases</a></li>
+		<li><a href="#detailTabs-3">Status</a></li>
+	</ul>
+	<div id="detailTabs-1">
+    <table style="width:75%;padding:3px;">
+    {% for k,v in row.items %}
+      {% if "."|notin:k %}
+      {% if "_"|notin:k %}
+    
+       <tr>
+          <td valign="top" style="font-size:12px;"> <b>{{ k|capfirst }}:<b> </td>
+          <td style="font-size:10px;">{{ v }}</td>
+        <tr>
+      {% endif %}
+      {% endif %}
+          
+    {% endfor %}
+    
+    </table>
+    <a href="#" onclick="$('#editor')[0].style.height = '';">Edit</a>
+    
+    <div id="editor" style="height:0px;overflow:hidden;">
+      <hr>
+  	  <form method="post" action=".">
+      <table>
+
+          {% for k,v in row.items %}
+
+            {% if "."|notin:k %}
+              {% if "_"|notin:k %}
+              {% ifequal k 'notes' %}
+            
+                <tr>
+                  <td valign="top"> {{ k|capfirst }}: </td>
+                  <td>
+                  
+                  
+                    <textarea style="font-size:12px" class="textElem" type="text" rows="5" cols="55"
+                      name="{{ k }}">{% filter force_escape %}{{ v }}{% endfilter %}</textarea>
+                   
+                    
+                  </td>
+                </tr>
+              {% else %}
+              <tr>
+                <td> {{ k|capfirst }}: </td>
+                <td>
+                  <input class="textElem" type="text" size="80%"
+                    name="{{ k }}" value="{% filter force_escape %}{{ v }}{% endfilter %}">
+                </td>
+              </tr>
+            
+              {% endifequal %}
+
+              {% endif %}
+            {% endif %}
+
+          {% endfor %}
+
+          <td><input type="submit" value="Update"></td>
+        </tr>
+      </table>
+      </form>	
+   </div>
+	</div>
+	
+	<div id="detailTabs-2" >
+    <table id="casesGrid" class="scroll" cellpadding="0" cellspacing="0"></table>
+    <div id="pager2" class="scroll" style="text-align:center;"></div>
+    
+    <a href="javascript:newCase();">New Step</a> | 
+    <a href="javascript:doneEdit();">Done Editing</a> |
+    <a href="javascript:deleteSelected();">Delete Selected</a> |
+    <a href="javascript:viewDocs();">View File</a> |
+    <a href="javascript:bugLinks();">Bug Links</a> |
+    
+	</div>
+	
+	<div id="detailTabs-3">
+	  <table>
+	    <tr>
+	      <td>
+	        <div id="result" style="font-size:12px;"/>
+	      </td>
+	      <td>
+	        <div id="graph"/>
+	      </td>
+	    </tr>
+	    </table>
+	</div>
+</div>
+
+<div id="sourceDialog" title="Source" style="display:none">
+  <div id="sourceTabs" style="font-size:12px;">
+      <ul>
+          <li><a href="#sourceTabs-1"><span>Source</span></a></li>
+          <li><a href="#sourceTabs-2"><span>Docs</span></a></li>
+      </ul>
+      <div id="sourceTabs-1" style="overflow:auto">
+      </div>
+      <div id="sourceTabs-2" style="overflow:auto">
+      </div>
+  </div>
+</div>
+
+
+<script type="text/javascript" charset="utf-8">
+  
+  var viewDocs = function(){
+     var sRow = jQuery('#casesGrid').getGridParam('selrow');
+     var rowObj = jQuery("#casesGrid").getRowData(sRow);
+     
+     if (rowObj['file'] == ""){
+       alert("The selected row doesn't have a file to display.");
+       return;
+     }
+     
+     $("#sourceDialog").dialog({ 
+       autoOpen: false, 
+       buttons: { 'Ok': function() {
+         $(this).dialog('close'); 
+         }
+        },
+        height: 650,
+        width: 500,
+      });
+      
+      //cleaning up dialog contents
+      $("#sourceTabs-1").html("");
+      $("#sourceTabs-2").html("");
+     
+      //open source dialog
+      $("#sourceTabs").tabs({ selected: 0 });
+      $("#sourceDialog")[0].style.display = "";
+      $("#sourceDialog").dialog('open');
+     
+     $.post("/projects/get_file_source", { file_path: rowObj['file'], id: "{{ id }}"  }, function(data){ 
+ 	     $("#sourceTabs-1")[0].innerHTML = data;
+ 	     
+       // create the docs page from comments in html I just appended
+       var mlComments = $('#sourceTabs-1').find(".sd");
+       var olComments = $('#sourceTabs-1').find(".c");
+       
+       for (var ml=0;ml<mlComments.length; ml++){
+         $('#sourceTabs-2')[0].innerHTML += mlComments[ml].innerHTML + "<br>";
+       }
+       
+       for (var ol=0;ol<olComments.length;ol++){
+         $('#sourceTabs-2')[0].innerHTML += olComments[ol].innerHTML + "<br>";
+       }
+ 	     
+ 	   });
+     
+  };
+  
+  //Display a dialog with links to the bugs attached to the test case
+  var bugLinks = function(){
+    var sRow = jQuery('#casesGrid').getGridParam('selrow');
+    var rowObj = jQuery("#casesGrid").getRowData(sRow);
+    
+    if (!document.getElementById('dialog')){
+        var d = document.createElement('div');
+        d.id = "dialog";
+        d.title = "Bug Links";
+        document.body.appendChild(d);
+        $("#dialog").dialog({ autoOpen: false });
+    } else {
+      $("#dialog").html("");
+    }
+      
+    //build links
+    var bugStr = rowObj['bugs'];
+    bugStr = bugStr.replace(/\s+/g,'');
+    var bugArr = bugStr.split(',');
+    if (bugArr < 1){
+      alert("No bugs have been logged for the selected step.")
+      return;
+    }
+    //create links and add them to the dialog
+    for (bug in bugArr){
+      var l = document.createElement('a');
+      l.href = "{{ trac }}"+bugArr[bug];
+      l.target = "_blank";
+      l.innerHTML = "Bug: "+bugArr[bug];
+      $("#dialog")[0].appendChild(l);
+      $("#dialog")[0].appendChild(document.createElement('br'));
+    }
+    $("#dialog").dialog('open');
+  };
+  
+  var hlStatus = function(){
+    $("td[title='PASS']").css("background","lightgreen");
+    $("td[title='FAIL']").css("background","#F08080");
+    $("td[title='BLOCKED']").css("background","lightyellow");
+  };
+  
+  var newCase = function(){
+     var z = $("#casesGrid").children().children().length;
+     var x = {step:z+1,assertion:'',name:"",status:"PASS",bugs:"",comments:''};
+     $("#casesGrid").addRowData(z+1,x);
+  };
+  
+  var doneEdit = function(){
+    var currRow = jQuery('#casesGrid').getGridParam('selrow');
+    jQuery("#casesGrid").saveRow(currRow);
+    setTimeout(hlStatus, 1000);
+  };
+  
+  var deleteSelected = function(){
+    var currRow = jQuery('#casesGrid').getGridParam('selrow');
+    var rmed = jQuery("#casesGrid").delRowData(currRow);
+    
+    //delte from server
+    if (rmed){
+  	  $.post("/projects/delete_case", { id:'{{ id }}', case_id: currRow },  function(data){ 
+  	    if (data != 'True'){
+  	      alert("Problem deleting row "+currRow+" from the server.")
+  	    }
+  	  });
+    }
+  };
+  
+  //execute when loaded
+	$(function(){
+	  $('#detailTabs').tabs({ selected: 0 });
+	  
+	  $.post("/projects/feed", { name: "{{ row.name }}" },   function(data){ 
+	    var blah = eval(data);
+	    for (var i =0; i<blah.length;i++){
+	      var x = i+1;
+	      $('#result')[0].innerHTML += x+". <a target='_blank' href='"+blah[i].link+"'>"+blah[i].title + "</a><br>";
+	    }
+	  });
+	  
+	  $.post("/projects/url", { name: "{{ row.name }}" },   function(data){ 
+	    var img = document.createElement('img');
+	    img.src = data+'buildTimeGraph';
+	    $('#result')[0].innerHTML += "<br><br><br><center><a href='"+data+'build?delay=0sec'+"'>RUN NOW</a></center>";
+	    $('#graph')[0].appendChild(img);
+	  });
+ 
+    var lastsel2;
+    // This is the actual grid
+    $("#casesGrid").jqGrid({
+        url:'/projects/get_cases?id={{ id }}', 
+        datatype: "json",
+        colNames:['ID','Assertion','File','Bugs','Comments','Status'],
+        colModel:[
+            {name:'id',index:'id',align:"center", width:20},
+            {name:'assertion',index:'assertion', sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"5",cols:"25"}},
+            {name:'file',index:'file',editable: true},
+        	  {name:'bugs',index:'bugs', align:"center", width:50,sortable:false, editable: true},
+            {name:'comments',index:'comments',sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"5",cols:"25"}},
+            {name:'status',index:'status', width:40, align:"center", editable: true, edittype:"select", editoptions:{value:"NONE:NONE;PASS:PASS;FAIL:FAIL;BLOCKED:BLOCKED"}},
+        ],
+        editurl: "/projects/save_cases?id={{ id }}",
+        ondblClickRow: function(id){ 
+          if(id && id!==lastsel2){ 
+            jQuery('#casesGrid').saveRow(lastsel2,function(r){
+              return true;
+            }); 
+            jQuery('#casesGrid').editRow(id,true); 
+            lastsel2=id; 
+          }
+        },
+        loadComplete: hlStatus,
+        caption: "Test Cases"
+    });
+    
+    //Ensure that the grid is a reasonable size based on the window
+    var resizeGrid = function(){
+      var nw = parseInt($("#layout-center")[0].style.width) -50;
+      jQuery("#casesGrid").setGridWidth(nw);
+    
+      var hh = parseInt($("#header")[0].style.height);
+      var nw = parseInt($("#layout-center")[0].style.height) - (hh +150);
+      jQuery("#casesGrid").setGridHeight(nw);
+    }
+    
+    resizeGrid();
+    window.onresize = resizeGrid;
+ 
+  });
+</script>
+{% endblock %}
