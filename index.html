@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+	<title>admc/testmill @ GitHub</title>
+	
+	<style type="text/css">
+		body {
+  		margin-top: 1.0em;
+  		background-color: #ff9e0a;
+		  font-family: "Helvetica,Arial,FreeSans"; 
+  		color: #000000;
+    }
+    #container {
+      margin: 0 auto;
+      width: 700px;
+    }
+		h1 { font-size: 3.8em; color: #0061f5; margin-bottom: 3px; }
+		h1 .small { font-size: 0.4em; }
+		h1 a { text-decoration: none }
+		h2 { font-size: 1.5em; color: #0061f5; }
+    h3 { text-align: center; color: #0061f5; }
+    a { color: #0061f5; }
+    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+    .download { float: right; }
+		pre { background: #000; color: #fff; padding: 15px;}
+    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+    .footer { text-align:center; padding-top:30px; font-style: italic; }
+	</style>
+	
+</head>
+
+<body>
+  <a href="http://github.com/admc/testmill"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
+  
+  <div id="container">
+
+    <div class="download">
+      <a href="http://github.com/admc/testmill/zipball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
+      <a href="http://github.com/admc/testmill/tarball/master">
+        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
+    </div>
+      
+    <h1><a href="http://github.com/admc/testmill">testmill</a> 
+      <span class="small">by <a href="http://github.com/admc">admc</a></span></h1>
+
+    <div class="description">
+      A test case management system with hooks for hudson, issue trackers and your source repo, built in Django, CouchDB, and jQuery.
+    </div>
+
+    <p>The goals of this project are to connect all of the resources you use for creating, running and managing your automated and manual test cases.</p><h2>Dependencies</h2>
+<p> python - http://www.python.org/
+ django - http://www.djangoproject.com/
+ pygments - http://pygments.org/
+ feedparser - http://www.feedparser.org/
+ couchDB - http://couchdb.apache.org/
+ sqlite3 - http://sqlite.org/
+ couchdb-python - http://code.google.com/p/couchdb-python/</p>
+<h2>Install</h2>
+<p>1. cd testMill
+  2. python manage.py syncdb
+   - Create a user when it asks
+  3. python manage.py runserver
+  4. goto localhost:8000/admin unless you ran it elsewhere then go there
+  5. click 'Applications' link and add all the applications (or products) you will be testing
+  6. go back to /admin
+  7. click 'Servers' add one of each available servers
+   - (REQUIRED) the COUCHDB url needs to be where your couchDB server is running, ex: http://127.0.0.1:5984 (default)
+    - This can also be configured in settings.py to point elsewhere on startup instead of getting it from the DB
+   - the TICKET url needs to be to your bug/issue/ticket trackers root url, ex: https://trac.slide.com/projects/Slide/ticket/
+   - the HUDSON url needs to be the url to your Hudson install, ex: http://hudson/
+   - the SOURCE url needs to be the root of your http accessible source repo where your tests are stored, ex: http://myurl.com/mygitrepo
+  8. Go back to the testMill home page, and login!
+  9. Start adding testProjects, link on the left side.</p>
+<h2>License</h2>
+<p>Copyright 2009, Adam Christian (adam@adamchristian.com) and Slide, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. </p>
+<h2>Authors</h2>
+<p>Adam Christian (adam.christian@gmail.com)<br/><br/>      </p>
+<h2>Contact</h2>
+<p>Adam Christian (adam.christian@gmail.com)<br/>      </p>
+
+
+    <h2>Download</h2>
+    <p>
+      You can download this project in either
+      <a href="http://github.com/admc/testmill/zipball/master">zip</a> or
+      <a href="http://github.com/admc/testmill/tarball/master">tar</a> formats.
+    </p>
+    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
+      by running:
+      <pre>$ git clone git://github.com/admc/testmill</pre>
+    </p>
+      
+    <div class="footer">
+      get the source code on GitHub : <a href="http://github.com/admc/testmill">admc/testmill</a>
+    </div>
+    
+  </div>
+
+  
+</body>
+</html>
