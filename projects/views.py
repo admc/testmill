@@ -33,19 +33,19 @@ import couchdb
 
 try:
     TICKET = Server.objects.get(name="TICKET").path
-    print "Using TICKET Server", TICKET
+    #print "Using TICKET Server", TICKET
 except:
     TICKET = ''
     
 try:
     SOURCE = Server.objects.get(name="SOURCE").path
-    print "Using SOURCE Server", SOURCE
+    #print "Using SOURCE Server", SOURCE
 except:
     SOURCE = ''
 
 try:
     HUDSON = Server.objects.get(name="HUDSON").path
-    print "Using HUDSON Server", HUDSON
+    #print "Using HUDSON Server", HUDSON
 except:
     HUDSON = ''
 
@@ -233,7 +233,7 @@ def url(request):
     url = HUDSON+'/view/All/job/'+name+'/'
     url = url.replace(' ', '%20')
     
-    print "Accessing HUDSON URL", url
+    #print "Accessing HUDSON URL", url
     
     return HttpResponse(url)
 
@@ -294,7 +294,7 @@ def get_file_source(request):
     
     url = to_host+to_project+to_file
     
-    print "Accessing URL for file source", url
+    #print "Accessing URL for file source", url
     
     response = urllib2.urlopen(url)
     html = response.read()
