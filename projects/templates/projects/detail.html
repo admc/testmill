@@ -261,7 +261,7 @@ limitations under the License.
 	  
 	  $.post("/projects/url", { name: "{{ row.name }}" },   function(data){ 
 	    var img = document.createElement('img');
-	    img.src = data+'buildTimeGraph';
+	    img.src = data+'/test/trend';
 	    $('#result')[0].innerHTML += "<br><br><br><center><a href='"+data+'build?delay=0sec'+"'>RUN NOW</a></center>";
 	    $('#graph')[0].appendChild(img);
 	  });
