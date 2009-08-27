@@ -94,8 +94,9 @@ limitations under the License.
     <table id="casesGrid" class="scroll" cellpadding="0" cellspacing="0"></table>
     <div id="pager2" class="scroll" style="text-align:center;"></div>
     
-    <a href="javascript:newCase();">New Test Case</a> | 
-    <a href="javascript:doneEdit();">Done Editing</a> |
+    <a href="javascript:newCase();">New Test Case</a> |
+    <a href="javascript:editSelected();">Edit Selected</a>  |
+    <a href="javascript:doneEdit();">Save All</a> |
     <a href="javascript:deleteSelected();">Delete Selected</a>
     
     <span style="float:right;padding:5px;"><a href="javascript:viewDocs();">View File</a> |
@@ -247,6 +248,18 @@ limitations under the License.
     }
   };
   
+  var editSelected = function(){ 
+    var id = jQuery('#casesGrid').getGridParam('selrow');
+    
+    if(id && id!==window.lastsel2){ 
+      jQuery('#casesGrid').saveRow(window.lastsel2,function(r){
+        return true;
+      }); 
+      jQuery('#casesGrid').editRow(id,true); 
+      window.lastsel2=id;
+    }
+  };
+  
   //execute when loaded
 	$(function(){
 	  $('#detailTabs').tabs({ selected: 0 });
@@ -266,7 +279,8 @@ limitations under the License.
 	    $('#graph')[0].appendChild(img);
 	  });
  
-    var lastsel2;
+    window.lastsel2 = null;
+    
     // This is the actual grid
     $("#casesGrid").jqGrid({
         url:'/projects/get_cases?id={{ id }}', 
@@ -282,12 +296,12 @@ limitations under the License.
         ],
         editurl: "/projects/save_cases?id={{ id }}",
         ondblClickRow: function(id){ 
-          if(id && id!==lastsel2){ 
-            jQuery('#casesGrid').saveRow(lastsel2,function(r){
+          if(id && id!==window.lastsel2){ 
+            jQuery('#casesGrid').saveRow(window.lastsel2,function(r){
               return true;
             }); 
             jQuery('#casesGrid').editRow(id,true); 
-            lastsel2=id; 
+            window.lastsel2=id; 
           }
         },
         loadComplete: hlStatus,

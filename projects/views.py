@@ -72,13 +72,18 @@ except:
 # index summary page
 @login_required
 def index(request):
-    docs = COUCHDB['testmill']
-    active = len(docs);
-    couch = COUCHDB
-    ticket = TICKET
-    hudson = HUDSON
     
-    return render_to_response('projects/index.html', {'active':active, 'couch':couch, 'ticket':ticket, 'hudson':hudson})
+    if not request.user.is_authenticated():
+         return HttpResponseRedirect('/accounts/login')
+    
+    else:
+        docs = COUCHDB['testmill']
+        active = len(docs);
+        couch = COUCHDB
+        ticket = TICKET
+        hudson = HUDSON
+    
+        return render_to_response('projects/index.html', {'active':active, 'couch':couch, 'ticket':ticket, 'hudson':hudson})
 
 #helper function: build the json to display all test projects of an app type
 def build_app_dict(app_name):

@@ -100,9 +100,18 @@ limitations under the License.
     </div>
 
     <div class="ui-layout-west" id="layout-west">
-        <b> Test Projects</b> <a href="/projects/new" style="font-size:10px;">(New)</a><br><br>
-        <ul id="black" class="filetree">
-      	</ul>
+           <div style="height:95%;overflow:auto;">
+              <b> Test Projects</b> <a href="/projects/new" style="font-size:10px;">(New)</a><br><br>
+              <ul id="black" class="filetree">
+            	</ul>
+          	</div>
+          	
+        {% if user.is_authenticated %}
+        
+          	<div><center><a href="/accounts/logout">Logout, {{ user.username|capfirst }}.</a></center></div>
+        {% else %}
+            <div><center><a href="/accounts/logout">Logout</a></center></div>
+        {% endif %}
     </div>
 
     <!-- <div class="ui-layout-east">

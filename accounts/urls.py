@@ -15,5 +15,6 @@
 from django.conf.urls.defaults import *
 urlpatterns = patterns('testmill.accounts.views',
     (r'^logout','logout_view'),
+    (r'^profile','profile'),
     (r'^$','index'),
 )

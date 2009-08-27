@@ -20,3 +20,7 @@ from django.shortcuts import render_to_response
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect('/')
+    
+
+def profile(request):
+    return HttpResponseRedirect('/')
