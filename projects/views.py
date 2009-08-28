@@ -292,7 +292,7 @@ def get_file_source(request):
     to_project = doc['location'];
     to_file = file_path
     
-    url = to_host+to_project+to_file
+    url = to_host+to_project.strip()+to_file.strip()
     
     #print "Accessing URL for file source", url
     
