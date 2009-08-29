@@ -110,7 +110,7 @@ def build_app_dict(app_name):
     #return the dictionary
     return p_dict
 
-#Ajax call to build the tree view in the UI of apps
+
 @login_required
 def tree(request):
   
@@ -118,7 +118,7 @@ def tree(request):
     #build a display for each application
     for app in Application.objects.all():
         apps_lists.append(build_app_dict(app.name))
-    
+
     json = simplejson.dumps(apps_lists)
     return HttpResponse(json)
 
